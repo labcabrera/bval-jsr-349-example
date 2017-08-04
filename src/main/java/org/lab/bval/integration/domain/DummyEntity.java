@@ -7,6 +7,9 @@ import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Null;
 
+import org.apache.bval.constraints.NotEmpty;
+import org.lab.bval.integration.Constants.I18n.Messages;
+
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
@@ -21,22 +24,27 @@ import lombok.NoArgsConstructor;
 @ApiModel(value = "Example entity bean")
 public class DummyEntity {
 
-	@Null(message = "Id must be empty in a insert operation", groups = ValidationContext.Insert.class)
-	@NotNull(message = "Id is required", groups = ValidationContext.Default.class)
+	@Null(message = Messages.ID_MUST_BE_EMPTY, groups = ValidationContext.Insert.class)
+	@NotNull(message = Messages.ID_MANDATORY, groups = ValidationContext.Default.class)
 	@ApiModelProperty(value = "Identifier")
 	private String id;
 
-	@NotNull(message = "Name is required", groups = { ValidationContext.Insert.class, ValidationContext.Default.class })
+	@NotEmpty(message = Messages.NAME_MANDATORY, groups = { ValidationContext.Insert.class,
+			ValidationContext.Default.class })
+	@NotNull(message = Messages.NAME_MANDATORY, groups = { ValidationContext.Insert.class,
+			ValidationContext.Default.class })
 	@ApiModelProperty(value = "Name", required = true)
 	private String name;
 
 	@ApiModelProperty(value = "Description")
 	private String description;
 
-	// TODO min/max constraints dont work
-	@NotNull(message = "Code is required", groups = { ValidationContext.Insert.class, ValidationContext.Default.class })
-	@Min(value = 0, message = "Code must be greater than or equals to 0")
-	@Max(value = 10, message = "Code must be less than or equals to 10")
+	@NotNull(message = Messages.CODE_MANDATORY, groups = { ValidationContext.Insert.class,
+			ValidationContext.Default.class })
+	@Min(value = 0, message = Messages.CODE_MIN_VALUE, groups = { ValidationContext.Insert.class,
+			ValidationContext.Default.class })
+	@Max(value = 10, message = Messages.CODE_MAX_VALUE, groups = { ValidationContext.Insert.class,
+			ValidationContext.Default.class })
 	@ApiModelProperty(value = "Some code", required = true)
 	private Integer someCode;
 
@@ -46,6 +54,9 @@ public class DummyEntity {
 	@ApiModelProperty(value = "Bean updated date")
 	private Date updated;
 
+	/**
+	 * Validation scopes for this entity.
+	 */
 	public static class ValidationContext {
 
 		public static interface Insert {

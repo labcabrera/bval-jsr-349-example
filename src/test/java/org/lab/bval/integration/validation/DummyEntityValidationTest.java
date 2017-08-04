@@ -30,6 +30,14 @@ public class DummyEntityValidationTest {
 	}
 
 	@Test
+	public void test_ko_insert_empty() {
+		DummyEntity entity = DummyEntity.builder().build();
+		Set<ConstraintViolation<DummyEntity>> validationResult = validator.validate(entity,
+				DummyEntity.ValidationContext.Insert.class);
+		Validate.isTrue(!validationResult.isEmpty());
+	}
+
+	@Test
 	public void test_ko_insert_id() {
 		DummyEntity entity = DummyEntity.builder().name("name").someCode(2).id("id").build();
 		Set<ConstraintViolation<DummyEntity>> validationResult = validator.validate(entity,
@@ -38,16 +46,16 @@ public class DummyEntityValidationTest {
 	}
 
 	@Test
-	public void test_ko_insert_code() {
-		DummyEntity entity = DummyEntity.builder().name("name").someCode(null).build();
+	public void test_ko_insert_code_null() {
+		DummyEntity entity = DummyEntity.builder().name("name").build();
 		Set<ConstraintViolation<DummyEntity>> validationResult = validator.validate(entity,
 				DummyEntity.ValidationContext.Insert.class);
 		Validate.isTrue(!validationResult.isEmpty());
 	}
 
 	@Test
-	public void test_ko_insert_all_nulls() {
-		DummyEntity entity = DummyEntity.builder().build();
+	public void test_ko_insert_code_min() {
+		DummyEntity entity = DummyEntity.builder().name("name").someCode(-1).build();
 		Set<ConstraintViolation<DummyEntity>> validationResult = validator.validate(entity,
 				DummyEntity.ValidationContext.Insert.class);
 		Validate.isTrue(!validationResult.isEmpty());
