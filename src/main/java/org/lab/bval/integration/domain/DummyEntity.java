@@ -6,8 +6,10 @@ import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Null;
+import javax.validation.constraints.Pattern;
 
 import org.apache.bval.constraints.NotEmpty;
+import org.lab.bval.integration.Constants;
 import org.lab.bval.integration.Constants.I18n.Messages;
 
 import io.swagger.annotations.ApiModel;
@@ -35,6 +37,10 @@ public class DummyEntity {
 			ValidationContext.Default.class })
 	@ApiModelProperty(value = "Name", required = true)
 	private String name;
+
+	@Pattern(regexp = Constants.RegEx.EMAIL_RFC_2822, message = Messages.EMAIL_INVALID, groups = {
+			ValidationContext.Insert.class, ValidationContext.Default.class })
+	private String email;
 
 	@ApiModelProperty(value = "Description")
 	private String description;
