@@ -7,7 +7,9 @@ buildscript {
 		validationApiVersion = "1.1.0.Final"
 		swaggerVersion = "1.5.16"
 		jacksonVersion = "2.9.0"
+		logbackVersion = "1.2.3"
 		servletApiVersion = "3.1.0"
+		junitVersion = "4.12"
 	}
 }
 
@@ -33,7 +35,11 @@ dependencies {
 	compile("com.fasterxml.jackson.core:jackson-core:${jacksonVersion}")
 	compile("com.fasterxml.jackson.core:jackson-databind:${jacksonVersion}")
 	compile("org.projectlombok:lombok:${lombokVersion}")
+	compile("ch.qos.logback:logback-core:${logbackVersion}")
 
+	testCompile("junit:junit:${junitVersion}")
+	testCompile("org.springframework:spring-test:$springVersion")
+		
 	compileClasspath("javax.servlet:javax.servlet-api:${servletApiVersion}")
 
 }

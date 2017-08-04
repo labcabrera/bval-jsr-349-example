@@ -2,6 +2,6 @@ build
 bin
 **/.gradle
 **/.classpath
-*/.project
+**/.project
 **/.settings
 

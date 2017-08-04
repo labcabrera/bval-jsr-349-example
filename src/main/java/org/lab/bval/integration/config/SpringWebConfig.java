@@ -29,7 +29,7 @@ public class SpringWebConfig extends WebMvcConfigurerAdapter {
 	}
 
 	private ApiInfo apiInfo() {
-		return new ApiInfoBuilder().title("Bval REST integration example").description("REST documentation.")
+		return new ApiInfoBuilder().title("BVal REST integration example").description("REST documentation.")
 				.version(Constants.API_VERSION).build();
 	}
 
